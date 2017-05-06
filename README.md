@@ -177,10 +177,4 @@ Notes importantes
 
 2) Former des groupes de 2 ou 3 personnes maximum
 
-3) La note peut  être  différente  en fonction  de  l'implication de  chaque  membre  du
-
-groupe.
-
-[1]: http://miniclips.free.fr/bg1.png
-[2]: http://miniclips.free.fr/bg2.png
-[3]: http://miniclips.free.fr/bg3.png
+3) La note peut  être  différente  en fonction  de  l'implication de  chaque  membre  du groupe.
