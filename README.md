@@ -1,5 +1,5 @@
 
-# H1 TP d'approfondissement complément BD
+# TP d'approfondissement complément BD
 
 (MCD/MLD Merise, SQL, PLSQL et Procédures
 
@@ -19,7 +19,7 @@ proposer un sujet qui vous convient. Les groupes doivent être constitués dès 
 
 Un sujet doit aussi être choisi à ce moment là.
 
-## H2 1. Analyse et conception
+## 1. Analyse et conception
 
 Vous définirez, si ce n'est déjà fait, une application appartenant à la liste suivante :
 
@@ -115,7 +115,7 @@ Nota : Bien prendre en compte les contraintes, poser au moins un trigger sur la 
 
 ou B; Bien gérer les erreurs(exceptions), bien choisir les paramètres des fonctions.
 
-## H2 2. Implémentation de la base sous Oracle
+## 2. Implémentation de la base sous Oracle
 
 Dans cette étape, vous implémenterez l'application définie sous Oracle.
 
@@ -134,7 +134,7 @@ Vous assurerez donc les tâches suivantes :
  Coder les programmes PL/SQL de test des fonctions/procedures des deux packages.
 
 
-## H2 3. Travail à rendre
+## 3. Travail à rendre
 
 Travail à rendre: un dossier contenant :
 
