@@ -1,3 +1,3 @@
 # BDD
 
-[embed]http://miniclips.free.fr/pdf/sujet.pdf[/embed]
+[Intro.pdf](http://miniclips.free.fr/pdf/sujet.pdf)
