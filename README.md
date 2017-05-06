@@ -1,8 +1,4 @@
 
-[Source](http://miniclips.free.fr/pdf2/TPApprofondissementBD_SQL_2016_2017_V1.html "Permalink to ")
-
-![][1]
-
 Gabriel MOPOLO-MOKE page 1/3
 
 TP d'approfondissement complément BD
@@ -67,7 +63,7 @@ Vous devez ici prendre en compte les contraintes identifiées lors de la descrip
 
 du dictionnaire de données. Exemple de liens d'association pour deux entités A et
 
-![][2]
+_____________________________________________________________________________________________________
 
 Implémentation de la base sous Oracle
 
@@ -145,7 +141,7 @@ Vous assurerez donc les tâches suivantes :
 
  Coder les programmes PL/SQL de test des fonctions/procedures des deux packages.
 
-![][3]
+_____________________________________________________________________________________________________
 
 Travail à rendre
 
@@ -201,5 +197,3 @@ groupe.
 [1]: http://miniclips.free.fr/bg1.png
 [2]: http://miniclips.free.fr/bg2.png
 [3]: http://miniclips.free.fr/bg3.png
-
-  
