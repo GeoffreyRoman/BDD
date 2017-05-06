@@ -21,7 +21,7 @@ proposer un sujet qui vous convient. Les groupes doivent être constitués dès 
 
 Un sujet doit aussi être choisi à ce moment là.
 
-1. Analyse et conception
+## H2 1. Analyse et conception
 
 Vous définirez, si ce n'est déjà fait, une application appartenant à la liste suivante :
 
@@ -62,12 +62,6 @@ de SYBASE/SAP). Vous devez vous limiter à 10 entités maximum et 5 minimum.
 Vous devez ici prendre en compte les contraintes identifiées lors de la description
 
 du dictionnaire de données. Exemple de liens d'association pour deux entités A et
-
-_____________________________________________________________________________________________________
-
-Implémentation de la base sous Oracle
-
-Gabriel MOPOLO-MOKE page 2/3
 
 B  ayant  une  liaisons  1 :  N  ou  N-M  (exemple  UN  PILOTE  ASSURE  0,  1  ou
 
@@ -123,7 +117,7 @@ Nota : Bien prendre en compte les contraintes, poser au moins un trigger sur la 
 
 ou B; Bien gérer les erreurs(exceptions), bien choisir les paramètres des fonctions.
 
-2. Implémentation de la base sous Oracle
+## H2 2. Implémentation de la base sous Oracle
 
 Dans cette étape, vous implémenterez l'application définie sous Oracle.
 
@@ -141,13 +135,8 @@ Vous assurerez donc les tâches suivantes :
 
  Coder les programmes PL/SQL de test des fonctions/procedures des deux packages.
 
-_____________________________________________________________________________________________________
 
-Travail à rendre
-
-Gabriel MOPOLO-MOKE page 3/3
-
-3. Travail à rendre
+## H2 3. Travail à rendre
 
 Travail à rendre: un dossier contenant :
 
