@@ -20,18 +20,25 @@ End;
 ------------------------------------------------------------
 -- Test de la fonction agentinserer
 ------------------------------------------------------------
-Declare -- insertion réussi
-NomA Agent.nom%Type := 'ESsssLAsN';
-TelA Agent.tel%Type := '06122222';
+Declare -- erreur dans l'insertion 
+NomA Agent.nom%Type := 'ESLAN';
+TelA Agent.tel%Type := '061222223';
 SalaireA Agent.salaire%Type := 1600;
-Num2 Agent.agent_%Type;
+maxAgent number(2);
+nbColonne number(2);
 BEGIN
     PACKagent.agentinserer (NomA , TelA , SalaireA);
-    SELECT agent_ into Num2 FROM Agent WHERE nom = NomA;
-    IF Num2 > 0 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
-    ELSE
-    DBMS_OutPut.Put_Line('L agent ' || NomA || ' n a pas pu être inséré dans la table Agent');
+    SELECT max(agent_) into maxAgent from Agent;
+    SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
+    IF nbColonne > 0 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
+    ELSE DBMS_OutPut.Put_Line('L agent NONONON' || NomA || ' a ete insere dans la table Agent');
     END IF;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+            
 End;
 /
 
@@ -42,7 +49,7 @@ SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
 BEGIN
-    PACKagent.agentinserer (NomA , TelA , SalaireA);
+    PACKagent.agentinserer (NomA , '0612222456723' , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
     SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
     IF nbColonne = 0 THEN raise NO_DATA_FOUND;
@@ -52,6 +59,8 @@ EXCEPTION
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
+        WHEN OTHERS THEN
+            dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
 End;
 /
 /*
