@@ -1,32 +1,30 @@
-CREATE OR REPLACE PACKAGE agent is
+CREATE OR REPLACE PACKAGE PACKagent iS
 
-getAgentByIdByID(num IN number);
-agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
-agentsupprimer (num IN NUMBER);
-agentmodifier (num IN NUMBER, nom_ IN varchar);
-agentlister();
+FUNCTION getAgentById(num number) return agent%rowtype;
+FUNCTION agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
+FUNCTION agentsupprimer (num IN NUMBER);
+FUNCTION agentmodifier (num IN NUMBER, nom_ IN varchar);
+FUNCTION agentlister();
+END PACKagent;
+/
 
-END agent;
 
-Create Sequence seq_agt
-Start With 1;
--- pour la clef primaire
+CREATE OR REPLACE PACKAGE BODY PACKagent iS
 
-FUNCTION getAgentByIdByID(num IN number) return agent%rowtype IS
+FUNCTION getAgentById(num number)
+return agent%rowtype IS
+  ligneAgent agent%rowtype;
+  begin
+         select * INTO ligneAgent from agent where agent#=num;
 
-ligneAgent     agent%rowtype;
+          RETURN (ligneAgent);
 
-begin
-select * INTO ligneAgent
-from agent
-where agent_=num;
-RETURN(ligneAgent);
-
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-                raise;
-        WHEN OTHERS THEN
-                raise;
+          EXCEPTION
+                  WHEN NO_DATA_FOUND THEN
+                    raise;
+                  WHEN OTHERS THEN
+                    raise; 
+  
 end getAgentById;
 
 FUNCTION agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number)
@@ -34,7 +32,6 @@ FUNCTION agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN
             INSERT INTO agent
             VALUES (num, nom, tel, salaire);
         END agentinserer;
-
 
 FUNCTION agentsupprimer (num IN NUMBER)
         BEGIN
@@ -61,3 +58,5 @@ FUNCTION agentlister()
 
         Return ligneAgent;
         END agentlister;
+END PACKagent;
+/
