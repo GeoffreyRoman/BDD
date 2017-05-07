@@ -4,7 +4,8 @@ FUNCTION getAgentById(idAgent number) return agent%rowtype;
 PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
 PROCEDURE agentsupprimer (idAgent NUMBER);
 PROCEDURE agentmodifier (idAgent NUMBER, nom varchar);
-FUNCTION agentlister return agent%rowtype;
+PROCEDURE agentlister ;
+
 END PACKagent;
 /
 
@@ -46,14 +47,25 @@ PROCEDURE agentmodifier (idAgent NUMBER, nom IN varchar) is
             WHERE agent_ = idAgent;
         END agentmodifier;
 
-FUNCTION agentlister return agent%rowtype is
-        ligneAgent      agent%rowtype;
+PROCEDURE agentlister is
+         nomA agent.nom%type;
+          idA agent.agent_%type;
+           salA agent.salaire%type;
+            telA agent.tel%type;
+        cursor ligneAgent  is select agent_,nom,tel,salaire  from agent;
+       
+        begin
+       
+        open ligneAgent;
+        loop
+        fetch ligneAgent into idA,nomA,telA,salA;
+         EXIT WHEN ligneAgent%NOTFOUND;
+        
+        dbms_output.put_line(idA || ',' || nomA || ',' || telA || ',' || salA);
+end loop;
 
-        BEGIN
-        select * INTO ligneAgent
-        from agent;
-
-        Return ligneAgent;
+close ligneAgent;
+       
         END agentlister;
 
 END PACKagent;
