@@ -4,7 +4,7 @@ FUNCTION getAgentById(num number) return agent%rowtype;
 PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
 ---PROCEDURE agentsupprimer (num IN NUMBER);
 PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar);
----PROCEDURE agentlister;
+FUNCTION agentlister return agent%rowtype;
 END PACKagent;
 /
 
@@ -46,9 +46,8 @@ PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar) is
             WHERE agent_ = num;
         END agentmodifier;
 
-/*PROCEDURE agentlister is
-        Declare
-        ligneAgent agent%rowtype;
+FUNCTION agentlister return agent%rowtype is
+        ligneAgent      agent%rowtype;
 
         BEGIN
         select * INTO ligneAgent
@@ -56,5 +55,5 @@ PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar) is
 
         Return ligneAgent;
         END agentlister;
-*/
+
 END PACKagent;
