@@ -19,7 +19,7 @@ ligneAgent     agent%rowtype;
 begin
 select * INTO ligneAgent
 from agent
-where agent#=num;
+where agent_=num;
 RETURN(ligneAgent);
 
 EXCEPTION
@@ -47,7 +47,7 @@ FUNCTION agentmodifier (num IN NUMBER, nom_ IN varchar)
         BEGIN
             UPDATE agent
             SET nom = nom
-            WHERE agent# = num;
+            WHERE agent_ = num;
         END agentmodifier;
 
 
