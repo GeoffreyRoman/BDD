@@ -1,9 +1,9 @@
 CREATE OR REPLACE PACKAGE PACKagent is
 
-FUNCTION getAgentById(num number) return agent%rowtype;
-PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
----PROCEDURE agentsupprimer (num IN NUMBER);
-PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar);
+FUNCTION getAgentById(idAgent number) return agent%rowtype;
+PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
+---PROCEDURE agentsupprimer (idAgent NUMBER);
+PROCEDURE agentmodifier (idAgent NUMBER, nom varchar);
 FUNCTION agentlister return agent%rowtype;
 END PACKagent;
 /
@@ -11,10 +11,10 @@ END PACKagent;
 
 CREATE OR REPLACE PACKAGE BODY PACKagent is
 
-FUNCTION getAgentById(num number) return agent%rowtype IS
+FUNCTION getAgentById(idAgent number) return agent%rowtype IS
   ligneAgent agent%rowtype;
   begin
-         select * INTO ligneAgent from agent where agent_=num;
+         select * INTO ligneAgent from agent where agent_= idAgent;
 
         return (ligneAgent);
 
@@ -26,24 +26,24 @@ FUNCTION getAgentById(num number) return agent%rowtype IS
   
   end getAgentById;
 
-PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number) is
+PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number) is
         BEGIN
-            INSERT INTO agent
-            VALUES (num, nom, tel, salaire);
+            INSERT INTO agent  (nom, tel, salaire)
+            VALUES (nomAgent,telAgent,salaire);
         END agentinserer;
 
-/*PROCEDURE agentsupprimer (num IN NUMBER) is
+/*PROCEDURE agentsupprimer (idAgent NUMBER) is
         BEGIN
             ON DELETE CASCADE FROM agent
-            WHERE agent_ = num;
+            WHERE agent_ = idAgent;
         END agentsupprimer;*/
 
 
-PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar) is
+PROCEDURE agentmodifier (idAgent NUMBER, nom IN varchar) is
         BEGIN
             UPDATE agent
             SET nom = nom
-            WHERE agent_ = num;
+            WHERE agent_ = idAgent;
         END agentmodifier;
 
 FUNCTION agentlister return agent%rowtype is
