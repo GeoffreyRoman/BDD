@@ -32,21 +32,29 @@ BEGIN
 End;
 /
 
-/*
+------------------------------------------------------------
+-- Test de la fonction agentinserer
+------------------------------------------------------------
 Declare -- erreur dans l'insertion 
-NumA Agent.agent_%Type := 1; -- On va dire qu'il existe deja
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '0612222223';
 SalaireA Agent.salaire%Type := 1600;
+maxAgent number(2);
+nbColonne number(2);
 BEGIN
-    PACKagent.agentinserer (NumA, NomA , TelA , SalaireA);
+    PACKagent.agentinserer (NomA , TelA , SalaireA);
+    SELECT max(agent_) into maxAgent from Agent;
+    SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
+    IF nbColonne = 0 THEN raise NO_DATA_FOUND;
+    END IF;
 EXCEPTION
-        WHEN OTHER THEN
-                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NumA);
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
 /
+/*
 ------------------------------------------------------------
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
