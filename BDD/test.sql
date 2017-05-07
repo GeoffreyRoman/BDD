@@ -18,16 +18,14 @@ End;
 /
 
 Declare -- insertion réussi
-NumA Agent.agent_%Type := 25;
 NomA Agent.nom%Type := 'ESsssLAsN';
 TelA Agent.tel%Type := '06122222';
 SalaireA Agent.salaire%Type := 1600;
 Num2 Agent.agent_%Type;
 BEGIN
-    PACKagent.agentinserer (NumA, NomA , TelA , SalaireA);
+    PACKagent.agentinserer (NomA , TelA , SalaireA);
     SELECT agent_ into Num2 FROM Agent WHERE nom = NomA;
-    DBMS_OutPut.Put_Line('numA' || NumA || ' NUM2 = ' || Num2);
-    IF Num2 = NumA THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
+    IF Num2 > 0 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
     ELSE
     DBMS_OutPut.Put_Line('L agent ' || NomA || ' n a pas pu être inséré dans la table Agent');
     END IF;
