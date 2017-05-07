@@ -41,3 +41,4 @@ CREATE OR REPLACE TRIGGER Location_location_
 	BEGIN
 		 select Seq_Location_location_.NEXTVAL INTO :NEW.location_ from DUAL; 
 	END;
+
