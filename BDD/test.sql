@@ -40,7 +40,7 @@ End;
 
 Declare -- erreur dans l'insertion 
 NumA Agent.agent_%Type := 1; -- On va dire qu'il existe deja
-NomA Agent.nom%Type := 'TEMIN';
+NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '0612222223';
 SalaireA Agent.salaire%Type := 1600;
 BEGIN
@@ -56,7 +56,7 @@ End;
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
 Declare
-NumA Agent.agent_%Type := 20;
+NumA Agent.agent_%Type := 20; -- existe
 BEGIN
 LA := agent.agentsupprimer(NumA);
 IF (SELECT num FROM Agent WHERE num = NumA) = 20 THEN raise NO_DATA_FOUND;
@@ -66,6 +66,39 @@ END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+End;
+
+Declare
+NumA Agent.agent_%Type := 21; -- n'existe pas
+BEGIN
+IF (SELECT num FROM Agent WHERE num = NumA)%NOFOUND THEN raise NO_DATA_FOUND;
+ELSE
+DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
+END IF;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+End;
+
+------------------------------------------------------------
+-- Test de la fonction agentmodifier
+------------------------------------------------------------
+Declare
+NumA Agent.agent_%Type := 20;
+NomModif Agent.nom%Type := 'ASLAN';
+BEGIN
+agent.agentmodifier (NumA, NomModif);
+IF (SELECT nom FROM Agent WHERE num = NumA) != NomModif THEN raise NO_DATA_FOUND;
+ELSE
+DBMS_OutPut.Put_Line('L agent numéro ' || NumA || ' a était modifier dans la table Agent');
+END IF;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de modification de l\'agent numéro' || NumA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
