@@ -69,3 +69,22 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
+
+------------------------------------------------------------
+-- Test de la fonction agentmodifier
+------------------------------------------------------------
+Declare
+NumA Agent.agent_%Type := 20;
+NomModif Agent.nom%Type := 'ASLAN';
+BEGIN
+agent.agentmodifier (NumA, NomModif);
+IF (SELECT nom FROM Agent WHERE num = NumA) != NomModif THEN raise NO_DATA_FOUND;
+ELSE
+DBMS_OutPut.Put_Line('L agent numéro ' || NumA || ' a était modifier dans la table Agent');
+END IF;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de modification de l\'agent numéro' || NumA);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+End;
