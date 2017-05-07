@@ -18,17 +18,20 @@ End;
 /
 
 Declare -- insertion réussi
-NumA Agent.agent_%Type := 22;
+NumA Agent.agent_%Type := 23;
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '06122222';
 SalaireA Agent.salaire%Type := 1600;
 BEGIN
     PACKagent.agentinserer (NumA, NomA , TelA , SalaireA);
-    DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
+    IF (SELECT agent_ FROM Agent WHERE nom = 'ESLAN') = 22 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
+    ELSE
+    DBMS_OutPut.Put_Line('L agent ' || NomA || ' n a pas pu être inséré dans la table Agent');
+    END IF;
 End;
 /
 
-
+/*
 Declare -- erreur dans l'insertion 
 NumA Agent.agent_%Type := 1; -- On va dire qu'il existe deja
 NomA Agent.nom%Type := 'ESLAN';
@@ -95,4 +98,4 @@ EXCEPTION
 End;
 /
 
-
+*/
