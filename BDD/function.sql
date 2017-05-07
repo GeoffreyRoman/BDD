@@ -1,23 +1,21 @@
-CREATE OR REPLACE PACKAGE PACKagent iS
+CREATE OR REPLACE PACKAGE PACKagent is
 
 FUNCTION getAgentById(num number) return agent%rowtype;
-FUNCTION agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
-FUNCTION agentsupprimer (num IN NUMBER);
-FUNCTION agentmodifier (num IN NUMBER, nom_ IN varchar);
-FUNCTION agentlister();
+PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
+--PROCEDURE agentsupprimer (num IN NUMBER);
+PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar);
 END PACKagent;
 /
 
 
-CREATE OR REPLACE PACKAGE BODY PACKagent iS
+CREATE OR REPLACE PACKAGE BODY PACKagent is
 
-FUNCTION getAgentById(num number)
-return agent%rowtype IS
+FUNCTION getAgentById(num number) return agent%rowtype IS
   ligneAgent agent%rowtype;
   begin
          select * INTO ligneAgent from agent where agent#=num;
 
-          RETURN (ligneAgent);
+        return (ligneAgent);
 
           EXCEPTION
                   WHEN NO_DATA_FOUND THEN
@@ -25,22 +23,22 @@ return agent%rowtype IS
                   WHEN OTHERS THEN
                     raise; 
   
-end getAgentById;
+  end getAgentById;
 
-FUNCTION agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number)
+PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number) is
         BEGIN
             INSERT INTO agent
             VALUES (num, nom, tel, salaire);
         END agentinserer;
 
-FUNCTION agentsupprimer (num IN NUMBER)
+/*PROCEDURE agentsupprimer (num IN NUMBER) is
         BEGIN
             ON DELETE CASCADE FROM agent
             WHERE agent_ = num;
-        END agentsupprimer;
+        END agentsupprimer;*/
 
 
-FUNCTION agentmodifier (num IN NUMBER, nom_ IN varchar)
+PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar) is
         BEGIN
             UPDATE agent
             SET nom = nom
@@ -48,7 +46,7 @@ FUNCTION agentmodifier (num IN NUMBER, nom_ IN varchar)
         END agentmodifier;
 
 
-FUNCTION agentlister()
+PROCEDURE agentlister() is
         Declare
         ligneAgent agent%rowtype;
 
@@ -59,4 +57,3 @@ FUNCTION agentlister()
         Return ligneAgent;
         END agentlister;
 END PACKagent;
-/
