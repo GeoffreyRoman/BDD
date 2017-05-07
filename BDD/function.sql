@@ -2,14 +2,13 @@ CREATE OR REPLACE PACKAGE PACKagent is
 
 FUNCTION getAgentById(idAgent number) return agent%rowtype;
 PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
----PROCEDURE agentsupprimer (idAgent NUMBER);
+PROCEDURE agentsupprimer (idAgent NUMBER);
 PROCEDURE agentmodifier (idAgent NUMBER, nom varchar);
 FUNCTION agentlister return agent%rowtype;
 END PACKagent;
 /
 
-
-CREATE OR REPLACE PACKAGE BODY PACKagent is
+create or replace PACKAGE BODY AGENT is
 
 FUNCTION getAgentById(idAgent number) return agent%rowtype IS
   ligneAgent agent%rowtype;
@@ -56,4 +55,4 @@ FUNCTION agentlister return agent%rowtype is
         Return ligneAgent;
         END agentlister;
 
-END PACKagent;
+END AGENT;
