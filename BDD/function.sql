@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE PACKagent is
+create or replace PACKAGE PACKagent is
 
 FUNCTION getAgentById(idAgent number) return agent%rowtype;
 PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
@@ -8,7 +8,7 @@ FUNCTION agentlister return agent%rowtype;
 END PACKagent;
 /
 
-create or replace PACKAGE BODY AGENT is
+create or replace PACKAGE BODY PACKagent is
 
 FUNCTION getAgentById(idAgent number) return agent%rowtype IS
   ligneAgent agent%rowtype;
@@ -30,12 +30,13 @@ PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number) is
             INSERT INTO agent  (nom, tel, salaire)
             VALUES (nomAgent,telAgent,salaire);
         END agentinserer;
-
-/*PROCEDURE agentsupprimer (idAgent NUMBER) is
+        
+PROCEDURE agentsupprimer (idAgent NUMBER) is
         BEGIN
-            ON DELETE CASCADE FROM agent
-            WHERE agent_ = idAgent;
-        END agentsupprimer;*/
+            DELETE FROM LOCATION WHERE LOCATION.agent_ = idAgent;
+            DELETE FROM Agent WHERE agent_ = idAgent;
+        END agentsupprimer;
+
 
 
 PROCEDURE agentmodifier (idAgent NUMBER, nom IN varchar) is
@@ -55,4 +56,5 @@ FUNCTION agentlister return agent%rowtype is
         Return ligneAgent;
         END agentlister;
 
-END AGENT;
+END PACKagent;
+/
