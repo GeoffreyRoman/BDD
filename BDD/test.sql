@@ -20,7 +20,7 @@ End;
 ------------------------------------------------------------
 -- Test de la fonction agentinserer
 ------------------------------------------------------------
-Declare -- erreur dans l'insertion 
+Declare --  insertion reussite
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '061222223';
 SalaireA Agent.salaire%Type := 1600;
@@ -31,7 +31,7 @@ BEGIN
     SELECT max(agent_) into maxAgent from Agent;
     SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
     IF nbColonne > 0 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
-    ELSE DBMS_OutPut.Put_Line('L agent NONONON' || NomA || ' a ete insere dans la table Agent');
+    ELSE dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
     END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
