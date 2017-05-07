@@ -17,6 +17,9 @@ EXCEPTION
 End;
 /
 
+------------------------------------------------------------
+-- Test de la fonction agentinserer
+------------------------------------------------------------
 Declare -- insertion réussi
 NomA Agent.nom%Type := 'ESsssLAsN';
 TelA Agent.tel%Type := '06122222';
@@ -32,9 +35,6 @@ BEGIN
 End;
 /
 
-------------------------------------------------------------
--- Test de la fonction agentinserer
-------------------------------------------------------------
 Declare -- erreur dans l'insertion 
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '0612222223';
