@@ -6,7 +6,7 @@ Declare
 NumA Agent.agent_%Type := 100; --le numéro de l agent a tester est 100, donc normalement inexistant
 LA Agent%RowType; --liste des agents
 BEGIN
-LA := agent.getAgentById(NumA);
+LA := PACKagent.getAgentById(NumA);
 DBMS_OutPut.Put_Line('Nom de l agent = ' || LA.nom);
 DBMS_OutPut.Put_Line('Salaire de l agent = ' || LA.salaire);
 EXCEPTION
@@ -15,28 +15,19 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
+/
 
-------------------------------------------------------------
--- Test de la fonction agentinserer
-------------------------------------------------------------
 Declare -- insertion réussi
-NumA Agent.agent_%Type := 20;
+NumA Agent.agent_%Type := 22;
 NomA Agent.nom%Type := 'ESLAN';
-TelA Agent.tel%Type := '0612222222';
+TelA Agent.tel%Type := '06122222';
 SalaireA Agent.salaire%Type := 1600;
-LA Agent%RowType; --liste des agents
 BEGIN
-LA := agent.agentinserer (NumA, NomA , TelA , SalaireA);
-IF (SELECT num FROM Agent WHERE nom = 'ESLAN') = 20 THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
-END IF;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
-                dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+    PACKagent.agentinserer (NumA, NomA , TelA , SalaireA);
+    DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
 End;
+/
+
 
 Declare -- erreur dans l'insertion 
 NumA Agent.agent_%Type := 1; -- On va dire qu'il existe deja
@@ -44,21 +35,21 @@ NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '0612222223';
 SalaireA Agent.salaire%Type := 1600;
 BEGIN
-agent.agentinserer (NumA, NomA , TelA , SalaireA);
+    PACKagent.agentinserer (NumA, NomA , TelA , SalaireA);
 EXCEPTION
         WHEN OTHER THEN
-                dbms_output.put_line('Erreur lors de l'insertion de l'agent numéro' || NumA);
+                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NumA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
-
+/
 ------------------------------------------------------------
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
 Declare
 NumA Agent.agent_%Type := 20; -- existe
 BEGIN
-LA := agent.agentsupprimer(NumA);
+    LA := PACKagent.agentsupprimer(NumA);
 IF (SELECT num FROM Agent WHERE num = NumA) = 20 THEN raise NO_DATA_FOUND;
 ELSE
 DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
@@ -69,7 +60,7 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
-
+/
 Declare
 NumA Agent.agent_%Type := 21; -- n'existe pas
 BEGIN
@@ -83,7 +74,7 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
-
+/
 ------------------------------------------------------------
 -- Test de la fonction agentmodifier
 ------------------------------------------------------------
@@ -91,7 +82,7 @@ Declare
 NumA Agent.agent_%Type := 20;
 NomModif Agent.nom%Type := 'ASLAN';
 BEGIN
-agent.agentmodifier (NumA, NomModif);
+PACKagent.agentmodifier (NumA, NomModif);
 IF (SELECT nom FROM Agent WHERE num = NumA) != NomModif THEN raise NO_DATA_FOUND;
 ELSE
 DBMS_OutPut.Put_Line('L agent numéro ' || NumA || ' a était modifier dans la table Agent');
@@ -102,3 +93,6 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
+/
+
+
