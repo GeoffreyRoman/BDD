@@ -2,8 +2,9 @@ CREATE OR REPLACE PACKAGE PACKagent is
 
 FUNCTION getAgentById(num number) return agent%rowtype;
 PROCEDURE agentinserer (num IN NUMBER, nom IN varchar, tel IN varchar, salaire IN number);
---PROCEDURE agentsupprimer (num IN NUMBER);
+---PROCEDURE agentsupprimer (num IN NUMBER);
 PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar);
+---PROCEDURE agentlister;
 END PACKagent;
 /
 
@@ -13,7 +14,7 @@ CREATE OR REPLACE PACKAGE BODY PACKagent is
 FUNCTION getAgentById(num number) return agent%rowtype IS
   ligneAgent agent%rowtype;
   begin
-         select * INTO ligneAgent from agent where agent#=num;
+         select * INTO ligneAgent from agent where agent_=num;
 
         return (ligneAgent);
 
@@ -45,8 +46,7 @@ PROCEDURE agentmodifier (num IN NUMBER, nom_ IN varchar) is
             WHERE agent_ = num;
         END agentmodifier;
 
-
-PROCEDURE agentlister() is
+/*PROCEDURE agentlister is
         Declare
         ligneAgent agent%rowtype;
 
@@ -56,4 +56,5 @@ PROCEDURE agentlister() is
 
         Return ligneAgent;
         END agentlister;
+*/
 END PACKagent;
