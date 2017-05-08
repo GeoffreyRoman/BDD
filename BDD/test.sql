@@ -68,7 +68,7 @@ End;
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
 Declare
-idAgentAsupp Agent.agent_%Type := 1; -- existe pas
+idAgentAsupp Agent.agent_%Type := 1; -- existe
 nbColonne number(2) ;
 BEGIN
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
