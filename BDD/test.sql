@@ -63,39 +63,48 @@ EXCEPTION
             dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
 End;
 /
-/*
+
 ------------------------------------------------------------
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
 Declare
-NumA Agent.agent_%Type := 20; -- existe
+idAgentAsupp Agent.agent_%Type := 1; -- existe pas
+nbColonne number(2) ;
 BEGIN
-    LA := PACKagent.agentsupprimer(NumA);
-IF (SELECT num FROM Agent WHERE num = NumA) = 20 THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
-END IF;
+    SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
+    DBMS_OutPut.Put_Line( nbColonne );
+    IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
+    DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
+    ELSE
+    raise NO_DATA_FOUND;
+    END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
+                dbms_output.put_line('Erreur lors de la suppression de l agent numéro '|| idAgentAsupp);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
 /
+
 Declare
-NumA Agent.agent_%Type := 21; -- n'existe pas
+idAgentAsupp Agent.agent_%Type := 20; -- existe pas
+nbColonne number(2) ;
 BEGIN
-IF (SELECT num FROM Agent WHERE num = NumA)%NOFOUND THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
-END IF;
+    SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
+    DBMS_OutPut.Put_Line( nbColonne );
+    IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
+    DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
+    ELSE
+    raise NO_DATA_FOUND;
+    END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
+                dbms_output.put_line('Erreur lors de la suppression de l agent numéro '|| idAgentAsupp);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
 /
+/*
 ------------------------------------------------------------
 -- Test de la fonction agentmodifier
 ------------------------------------------------------------
