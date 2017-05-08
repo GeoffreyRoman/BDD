@@ -49,7 +49,7 @@ SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
 BEGIN
-    PACKagent.agentinserer (NomA , '0612222456723' , SalaireA);
+    PACKagent.agentinserer (NomA , TelA , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
     SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
     IF nbColonne = 0 THEN raise NO_DATA_FOUND;
@@ -68,10 +68,12 @@ End;
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
 Declare
-idAgentAsupp Agent.agent_%Type := 1; -- existe
+idAgentASupprimer Agent.agent_%Type; -- existe
 nbColonne number(2) ;
 BEGIN
-    SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
+    PACKAGENT.agentinserer('Gerard','0626299167',3000);
+    SELECT MAX(Agent_)  into idAgentASupprimer from agent;
+    SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentASupprimer;
     IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
     DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
     ELSE
