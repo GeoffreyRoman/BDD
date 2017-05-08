@@ -35,6 +35,7 @@ PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number) is
 PROCEDURE agentsupprimer (idAgent NUMBER) is
         BEGIN
             DELETE FROM LOCATION WHERE LOCATION.agent_ = idAgent;
+            DELETE FROM vente WHERE vente.agent_ = idAgent;
             DELETE FROM Agent WHERE agent_ = idAgent;
         END agentsupprimer;
 
