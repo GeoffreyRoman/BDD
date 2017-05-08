@@ -1,4 +1,4 @@
- ---------------------------------------------------------------
+---------------------------------------------------------------
  --        Script Oracle.  
  ---------------------------------------------------------------
 
@@ -54,7 +54,7 @@ CREATE TABLE Agent(
 CREATE TABLE Logement(
 	logement_      NUMBER NOT NULL ,
 	adresse        VARCHAR2 (200) NOT NULL  ,
-	type           VARCHAR2 (11)  ,
+	type           VARCHAR2 (12)  CONSTRAINT type_logement CHECK (type IN('maison','appartement', 'terrain')),
 	nombrepiece    NUMBER   ,
 	proprietaire_  NUMBER(10,0)  NOT NULL  ,
 	CONSTRAINT Logement_Pk PRIMARY KEY (logement_)
@@ -91,4 +91,3 @@ CREATE SEQUENCE Seq_Locataire_locataire_ START WITH 1 INCREMENT BY 1 NOCYCLE;
 CREATE SEQUENCE Seq_Agent_agent_ START WITH 1 INCREMENT BY 1 NOCYCLE;
 CREATE SEQUENCE Seq_Logement_logement_ START WITH 1 INCREMENT BY 1 NOCYCLE;
 CREATE SEQUENCE Seq_Location_location_ START WITH 1 INCREMENT BY 1 NOCYCLE;
-
