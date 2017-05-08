@@ -74,14 +74,14 @@ BEGIN
     PACKAGENT.agentinserer('Gerard','0626299167',3000);
     SELECT MAX(Agent_)  into idAgentASupprimer from agent;
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentASupprimer;
-    IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
-    DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
+    IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentASupprimer);
+    DBMS_OutPut.Put_Line('L agent ' || idAgentASupprimer || ' a était supprimer de la table Agent');
     ELSE
     raise NO_DATA_FOUND;
     END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de la suppression de l agent numéro '|| idAgentAsupp);
+                dbms_output.put_line('Erreur lors de la suppression de l agent numéro '|| idAgentASupprimer);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
