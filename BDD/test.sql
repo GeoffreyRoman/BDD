@@ -106,25 +106,28 @@ EXCEPTION
 End;
 /
 
-/*
+
 ------------------------------------------------------------
 -- Test de la fonction agentmodifier
 ------------------------------------------------------------
 Declare
-NumA Agent.agent_%Type := 20;
-NomModif Agent.nom%Type := 'ASLAN';
+idAgentAModifier Agent.agent_%Type;
+NomModif Agent.nom%Type := 'nommodifier';
+nbColonne number(2) ;
 BEGIN
-PACKagent.agentmodifier (NumA, NomModif);
-IF (SELECT nom FROM Agent WHERE num = NumA) != NomModif THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent numéro ' || NumA || ' a était modifier dans la table Agent');
-END IF;
+PACKAGENT.agentinserer('Gerard','0626299167',3000);
+SELECT MAX(Agent_) into idAgentAModifier from agent;
+PACKagent.agentmodifier (idAgentAModifier, NomModif);
+SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND nom = NomModif;
+    IF nbColonne != 1 THEN raise NO_DATA_FOUND;
+    ELSE 
+    DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
+    END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de modification de l\'agent numéro' || NumA);
+                dbms_output.put_line('Erreur lors de modification de l agent numéro' || idAgentAModifier);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
 /
 
-*/
