@@ -72,7 +72,6 @@ idAgentAsupp Agent.agent_%Type := 1; -- existe
 nbColonne number(2) ;
 BEGIN
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
-    DBMS_OutPut.Put_Line( nbColonne );
     IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
     DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
     ELSE
@@ -91,7 +90,6 @@ idAgentAsupp Agent.agent_%Type := 20; -- existe pas
 nbColonne number(2) ;
 BEGIN
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
-    DBMS_OutPut.Put_Line( nbColonne );
     IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
     DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
     ELSE
