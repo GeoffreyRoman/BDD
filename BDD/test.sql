@@ -2,6 +2,8 @@ set serverOutput on;
 ------------------------------------------------------------
 -- Test de la fonction getAgentById
 ------------------------------------------------------------
+DBMS_OutPut.Put_Line('-- Test de la fonction getAgentById');
+DBMS_OutPut.Put_Line('Test : Id est demander est inexisatant :');
 Declare
 NumA Agent.agent_%Type := 100; --le numéro de l agent a tester est 100, donc normalement inexistant
 LA Agent%RowType; --liste des agents
@@ -20,6 +22,8 @@ End;
 ------------------------------------------------------------
 -- Test de la fonction agentinserer
 ------------------------------------------------------------
+DBMS_OutPut.Put_Line('-- Test de la fonction agentinserer');
+DBMS_OutPut.Put_Line('Test : insertion avec succes :');
 Declare --  insertion reussite
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '061222223';
@@ -37,11 +41,11 @@ EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);       
 End;
 /
 
+DBMS_OutPut.Put_Line('Test : erreur de insertion :');
 Declare -- erreur dans l'insertion 
 NomA Agent.nom%Type := 'ESLAN';
 TelA Agent.tel%Type := '0612222223';
@@ -67,6 +71,8 @@ End;
 ------------------------------------------------------------
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
+DBMS_OutPut.Put_Line('-- Test de la fonction agentsupprimer');
+DBMS_OutPut.Put_Line('Test : Suppretion avec succes');
 Declare
 idAgentASupprimer Agent.agent_%Type; -- existe
 nbColonne number(2) ;
@@ -87,6 +93,7 @@ EXCEPTION
 End;
 /
 
+DBMS_OutPut.Put_Line('Test : erruer de suppretion');
 Declare
 idAgentAsupp Agent.agent_%Type := 20; -- existe pas
 nbColonne number(2) ;
