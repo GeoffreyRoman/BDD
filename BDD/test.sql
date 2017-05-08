@@ -108,38 +108,6 @@ End;
 
 /*
 ------------------------------------------------------------
--- Test de la fonction agentsupprimer
-------------------------------------------------------------
-Declare
-NumA Agent.agent_%Type := 20; -- existe
-BEGIN
-    LA := PACKagent.agentsupprimer(NumA);
-IF (SELECT num FROM Agent WHERE num = NumA) = 20 THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
-END IF;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
-                dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
-End;
-/
-Declare
-NumA Agent.agent_%Type := 21; -- n'existe pas
-BEGIN
-IF (SELECT num FROM Agent WHERE num = NumA)%NOFOUND THEN raise NO_DATA_FOUND;
-ELSE
-DBMS_OutPut.Put_Line('L agent ' || LA.nom || ' a était inséré dans la table Agent');
-END IF;
-EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l\'insertion de l\'agent numéro' || NumA);
-                dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
-End;
-/
-------------------------------------------------------------
 -- Test de la fonction agentmodifier
 ------------------------------------------------------------
 Declare
