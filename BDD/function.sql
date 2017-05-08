@@ -5,7 +5,7 @@ PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
 PROCEDURE agentsupprimer (idAgent NUMBER);
 PROCEDURE agentmodifier (idAgent NUMBER, nom varchar);
 PROCEDURE agentlister ;
-
+procedure agentComplexe(idAgent NUMBER);
 END PACKagent;
 /
 
@@ -67,6 +67,33 @@ end loop;
 close ligneAgent;
        
         END agentlister;
+        
+        
+        
+procedure agentComplexe(idAgent NUMBER)  is -- Affiche le nom de tous les prorpetaire qui ont un bien vendu par l'agent passe en parametres
+
+      nomProp proprietaire.nom%type;
+      
+      idprop logement.proprietaire_%type;
+      
+       idVente agent.nom%type;
+       
+        cursor prop is select logement.proprietaire_ from logement,vente where logement.logement_ = vente.LOGEMENT_;
+      
+        begin  
+        open prop;
+        loop
+        fetch prop into idprop;
+        exit when prop%notFound;
+        Select nom into nomProp from proprietaire where PROPRIETAIRE_=idprop;
+       
+      
+       
+        dbms_output.put_line(nomProp);
+        end loop;
+
+ END agentComplexe;
+
 
 END PACKagent;
 /
