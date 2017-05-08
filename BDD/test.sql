@@ -64,12 +64,10 @@ EXCEPTION
 End;
 /
 
-/*
+
 ------------------------------------------------------------
 -- Test de la fonction agentsupprimer
 ------------------------------------------------------------
-DBMS_OutPut.Put_Line('-- Test de la fonction agentsupprimer');
-DBMS_OutPut.Put_Line('Test : Suppression avec succes');
 Declare
 idAgentASupprimer Agent.agent_%Type; -- existe
 nbColonne number(2) ;
@@ -90,7 +88,6 @@ EXCEPTION
 End;
 /
 
-DBMS_OutPut.Put_Line('Test : erruer de suppression');
 Declare
 idAgentAsupp Agent.agent_%Type := 20; -- existe pas
 nbColonne number(2) ;
