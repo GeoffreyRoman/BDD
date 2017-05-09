@@ -149,3 +149,21 @@ EXCEPTION
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
 /
+
+Declare
+nbLigne number(3) ;
+retouragentotal number(3);
+BEGIN
+retouragentotal := PACKagent.agentotal;
+SELECT count(*) into nbLigne FROM Agent;
+    IF nbLigne != retouragentotal THEN raise NO_DATA_FOUND;
+    ELSE 
+    DBMS_OutPut.Put_Line('Nombre d occurances '|| nbLigne);
+    END IF;
+EXCEPTION
+        WHEN OTHERS THEN
+                dbms_output.put_line('Erreur : nombre de ligne attendu par agentotal() pas correct');
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+End;
+/
