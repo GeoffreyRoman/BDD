@@ -131,3 +131,21 @@ EXCEPTION
 End;
 /
 
+Declare
+idAgentAModifier varchar(3) :='num'; -- erreur type
+NomModif Agent.nom%Type := 'nommodifier';
+nbColonne number(2) ;
+BEGIN
+PACKagent.agentmodifier (idAgentAModifier, NomModif);
+SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND nom = NomModif;
+    IF nbColonne != 1 THEN raise NO_DATA_FOUND;
+    ELSE 
+    DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
+    END IF;
+EXCEPTION
+        WHEN OTHERS THEN
+                dbms_output.put_line('Erreur lors de modification de l agent numéro ' || idAgentAModifier);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+End;
+/
