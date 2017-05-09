@@ -3,7 +3,7 @@ create or replace PACKAGE PACKagent is
 FUNCTION getAgentById(idAgent number) return agent%rowtype;
 PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
 PROCEDURE agentsupprimer (idAgent NUMBER);
-PROCEDURE agentmodifier (idAgent NUMBER, nom varchar);
+PROCEDURE agentmodifier (idAgent NUMBER, nom_ varchar);
 PROCEDURE agentlister ;
 procedure agentComplexe(idAgent NUMBER);
 END PACKagent;
