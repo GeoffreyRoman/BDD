@@ -41,10 +41,10 @@ PROCEDURE agentsupprimer (idAgent NUMBER) is
 
 
 
-PROCEDURE agentmodifier (idAgent NUMBER, nom IN varchar) is
+PROCEDURE agentmodifier (idAgent NUMBER, nom_ IN varchar) is
         BEGIN
             UPDATE agent
-            SET nom = nom
+            SET nom = nom_
             WHERE agent_ = idAgent;
         END agentmodifier;
 
