@@ -175,7 +175,7 @@ End;
 -- Test de la fonction Venteinserer
 ------------------------------------------------------------
 Declare --  insertion reussite
-newProp Vente.vente_%Type;
+newProp Vente.proprietaire_%Type;
 Pdate Vente.dateAchat%Type := '12/03/2016';
 prixP Vente.prix%Type := 16000;
 Pproprietaire_ Vente.proprietaire_%Type;
@@ -188,7 +188,7 @@ BEGIN
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    PACKAGENT.agentinserer('Matou','0626229167',3000);
+    INSERT into proprietaire values(30,'Matou','0626229167');
     SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
     PACKVente.Venteinserer (newProp, Pdate ,prixP,Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
@@ -207,8 +207,7 @@ End;
 /
 
 Declare --  erreur insertion
-newProp Vente.vente_%Type;
-prixP Vente.prix%Type := 16000;
+newProp Vente.proprietaire_%Type;
 Pproprietaire_ Vente.proprietaire_%Type;
 Pagent_ vente.agent_%Type;
 Plogement_ vente.logement_%Type;
@@ -219,9 +218,9 @@ BEGIN
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    PACKAGENT.agentinserer('Matou','0626229167',3000);
+    INSERT into proprietaire values(31, 'Matou','0626229167');
     SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
-    PACKVente.Venteinserer (newProp, 'nn' ,prixP, Pproprietaire_ ,Pagent_ ,Plogement_ );
+    PACKVente.Venteinserer (newProp, 'nn' , 16000, Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
     SELECT max(proprietaire_) into maxProp from Vente;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
