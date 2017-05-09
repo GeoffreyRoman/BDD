@@ -1,3 +1,6 @@
+CREATE USER ADMIN IDENTIFIED BY mdp;
+GRANT CONNECT, RESOURCE TO ADMIN;
+
 INSERT into Proprietaire values(1, 'BALBIS', '0655555555');
 INSERT into Proprietaire values(2, 'ROMAN', '0655555544');
 INSERT into Proprietaire values(3, 'TAMZALI', '0659595544');
