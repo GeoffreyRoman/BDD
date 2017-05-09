@@ -44,7 +44,6 @@ End;
 
 Declare -- erreur dans l'insertion 
 NomA Agent.nom%Type := 'ESLAN';
-TelA Agent.tel%Type := '0612222223';
 SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
