@@ -150,6 +150,9 @@ EXCEPTION
 End;
 /
 
+------------------------------------------------------------
+-- Test de la fonction retouragentotal
+------------------------------------------------------------
 Declare
 nbLigne number(3) ;
 retouragentotal number(3);
