@@ -5,6 +5,7 @@ PROCEDURE agentinserer (nomAgent varchar, telAgent varchar, salaire number);
 PROCEDURE agentsupprimer (idAgent NUMBER);
 PROCEDURE agentmodifier (idAgent NUMBER, nom_ varchar);
 PROCEDURE agentlister ;
+FUNCTION agentotal return number;
 procedure agentComplexe(idAgent NUMBER);
 END PACKagent;
 /
@@ -47,6 +48,8 @@ PROCEDURE agentmodifier (idAgent NUMBER, nom_ IN varchar) is
             SET nom = nom_
             WHERE agent_ = idAgent;
         END agentmodifier;
+        
+    
 
 PROCEDURE agentlister is
          nomA agent.nom%type;
@@ -70,6 +73,13 @@ close ligneAgent;
         END agentlister;
         
         
+function agentotal return number is 
+    nbColonne number ;
+    begin
+    SELECT count(*) into nbColonne FROM Agent;
+    
+    return (nbColonne);
+end agentotal;
         
 procedure agentComplexe(idAgent NUMBER)  is -- Affiche le nom de tous les prorpetaire qui ont un bien vendu par l'agent passe en parametres
 
