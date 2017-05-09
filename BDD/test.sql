@@ -171,71 +171,50 @@ End;
 /
 
 --------------TESTS VENTE-----------------------------------
+
 ------------------------------------------------------------
--- Test de la fonction Venteinserer
+-- Test de la fonction ventesupprimer
 ------------------------------------------------------------
-Declare --  insertion reussite
-newProp Vente.vente_%Type;
-Pdate Vente.dateAchat%Type := '12/03/2016';
-prixP Vente.prix%Type := 16000;
-Pproprietaire_ Vente.proprietaire_%Type;
-Pagent_ vente.agent_%Type;
-Plogement_ vente.logement_%Type;
-maxVente number(2);
+Declare --  suppression reussite
+maxVente Vente.vente_%Type;
 nbLigne number(2);
-maxProp number(2);
 BEGIN
-    SELECT max(agent_) into Pagent_ from Agent;
-    SELECT max(Logement_) into Plogement_ from Logement;
-    SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    PACKAGENT.agentinserer('Matou','0626229167',3000);
-    SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
-    PACKVente.Venteinserer (newProp, Pdate ,prixP,Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
-    SELECT max(proprietaire_) into maxProp from Vente;
-    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
-    IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
+    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
+    IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
+    ELSE raise NO_DATA_FOUND;
+    END IF;
+    PACKVente.ventesupprimer(maxVente);
+    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
+    IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Agent');
     ELSE raise NO_DATA_FOUND;
     END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
+                dbms_output.put_line('Erreur lors de la supression de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
             
 End;
 /
 
-Declare --  erreur insertion
-newProp Vente.vente_%Type;
-prixP Vente.prix%Type := 16000;
-Pproprietaire_ Vente.proprietaire_%Type;
-Pagent_ vente.agent_%Type;
-Plogement_ vente.logement_%Type;
-maxVente number(2);
+Declare --  erreur suppression 
+maxVente Vente.vente_%Type := 100; -- existe pas
 nbLigne number(2);
-maxProp number(2);
 BEGIN
-    SELECT max(agent_) into Pagent_ from Agent;
-    SELECT max(Logement_) into Plogement_ from Logement;
-    SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    PACKAGENT.agentinserer('Matou','0626229167',3000);
-    SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
-    PACKVente.Venteinserer (newProp, 'nn' ,prixP, Pproprietaire_ ,Pagent_ ,Plogement_ );
-    SELECT max(vente_) into maxVente from Vente;
-    SELECT max(proprietaire_) into maxProp from Vente;
-    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
-    IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
+    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
+    IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
+    ELSE raise NO_DATA_FOUND;
+    END IF;
+    SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
+    IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Vente');
     ELSE raise NO_DATA_FOUND;
     END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur aucune données insérer');
-         WHEN OTHERS THEN
-                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
+                dbms_output.put_line('Erreur lors de lsupression de la Vente numéro ' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
             
 End;
 /
