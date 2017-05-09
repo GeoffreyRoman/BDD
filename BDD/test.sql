@@ -202,7 +202,7 @@ EXCEPTION
 End;
 /
 
-Declare --  insertion reussite
+Declare --  erreur insertion
 newProp Vente.vente_%Type;
 prixP Vente.prix%Type := 16000;
 Pproprietaire_ Vente.proprietaire_%Type;
