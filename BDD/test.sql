@@ -125,7 +125,7 @@ SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND no
     END IF;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de modification de l agent numéro' || idAgentAModifier);
+                dbms_output.put_line('Erreur lors de modification de l agent numéro ' || idAgentAModifier);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
