@@ -170,6 +170,10 @@ EXCEPTION
 End;
 /
 
+--------------TESTS VENTE-----------------------------------
+------------------------------------------------------------
+-- Test de la fonction Venteinserer
+------------------------------------------------------------
 Declare --  insertion reussite
 newProp Vente.vente_%Type;
 Pdate Vente.dateAchat%Type := '12/03/2016';
@@ -235,3 +239,4 @@ EXCEPTION
             
 End;
 /
+
