@@ -205,7 +205,7 @@ begin savepoint p;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    INSERT into proprietaire (nom,tel) values('Matou','0626229167');
+    INSERT into proprietaire (nom,tel) values ('Matou','0626229167');
     SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
     PACKVente.Venteinserer (newProp, Pdate ,prixP,Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
