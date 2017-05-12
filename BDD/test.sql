@@ -210,6 +210,7 @@ begin savepoint p1;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
     IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
     ELSE raise NO_DATA_FOUND;
+    
     end if; 
  rollback to p1;
 EXCEPTION
@@ -217,6 +218,7 @@ EXCEPTION
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
+                rollback to p1;
             
 End;
 /
