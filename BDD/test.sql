@@ -33,14 +33,14 @@ SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
 begin 
-savepoint p2;
+savepoint p1;
     PACKagent.agentinserer (NomA , TelA , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
     SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
     IF nbColonne > 0 THEN DBMS_OutPut.Put_Line('L agent ' || NomA || ' a ete insere dans la table Agent');
     ELSE dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
     END IF;
-    rollback to p2;
+    rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
@@ -56,13 +56,13 @@ SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
 begin 
-savepoint p2;
+savepoint p1;
     PACKagent.agentinserer (NomA , '0612222456723' , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
     SELECT count(*) into nbColonne FROM Agent WHERE nom = NomA and agent_ = maxAgent;
     IF nbColonne = 0 THEN raise NO_DATA_FOUND;
     END IF;
-    rollback to p2;
+    rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro ' || NomA);
@@ -80,7 +80,7 @@ End;
 Declare
 idAgentASupprimer Agent.agent_%Type; -- existe
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p1; 
     PACKAGENT.agentinserer('Gerard','0626299167',3000);
     SELECT MAX(Agent_)  into idAgentASupprimer from agent;
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentASupprimer;
@@ -102,14 +102,14 @@ End;
 Declare
 idAgentAsupp Agent.agent_%Type := 20; -- existe pas
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p1; 
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
     IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
     DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
     ELSE
     raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de la suppression de l agent numéro '|| idAgentAsupp);
@@ -126,7 +126,7 @@ Declare
 idAgentAModifier Agent.agent_%Type;
 NomModif Agent.nom%Type := 'nommodifier';
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p1; 
 PACKAGENT.agentinserer('Gerard','0626299167',3000);
 SELECT MAX(Agent_) into idAgentAModifier from agent;
 PACKagent.agentmodifier (idAgentAModifier, NomModif);
@@ -135,7 +135,7 @@ SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND no
     ELSE 
     DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de modification de l agent numéro ' || idAgentAModifier);
@@ -148,14 +148,14 @@ Declare
 idAgentAModifier varchar(3) :='num'; -- erreur type
 NomModif Agent.nom%Type := 'nommodifier';
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p1; 
 PACKagent.agentmodifier (idAgentAModifier, NomModif);
 SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND nom = NomModif;
     IF nbColonne != 1 THEN raise NO_DATA_FOUND;
     ELSE 
     DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN OTHERS THEN
                 dbms_output.put_line('Erreur lors de modification de l agent');
@@ -170,14 +170,14 @@ End;
 Declare
 nbLigne number(3) ;
 retouragentotal number(3);
-begin savepoint p; 
+begin savepoint p1; 
 retouragentotal := PACKagent.agentotal;
 SELECT count(*) into nbLigne FROM Agent;
     IF nbLigne != retouragentotal THEN raise NO_DATA_FOUND;
     ELSE 
     DBMS_OutPut.Put_Line('Nombre d occurances '|| nbLigne);
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN OTHERS THEN
                 dbms_output.put_line('Erreur : nombre de ligne attendu par agentotal() pas correct');
@@ -198,7 +198,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p; 
+begin savepoint p1; 
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -211,7 +211,7 @@ begin savepoint p;
     IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
     ELSE raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
@@ -229,7 +229,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p; 
+begin savepoint p1; 
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -242,7 +242,7 @@ begin savepoint p;
     IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
     ELSE raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur aucune données insérer');
@@ -261,19 +261,19 @@ End;
 Declare --  suppression reussite
 maxVente Vente.vente_%Type;
 nbLigne number(2);
-begin savepoint p; 
+begin savepoint p1; 
     SELECT max(vente_) into maxVente from Vente;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
     ELSE raise NO_DATA_FOUND;
     end if; 
-    
+ rollback to p1;
     PACKVente.ventesupprimer(maxVente);
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Agent');
     ELSE raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de la supression de l agent numéro' || maxVente);
@@ -286,18 +286,18 @@ End;
 Declare --  erreur suppression 
 maxVente Vente.vente_%Type := 100; -- existe pas
 nbLigne number(2);
-begin savepoint p;
+begin savepoint p1;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
     ELSE raise NO_DATA_FOUND;
-    rollback to p; 
+    rollback to p1; 
     end if; 
 
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Vente');
     ELSE raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de lsupression de la Vente numéro ' || maxVente);
@@ -306,7 +306,6 @@ EXCEPTION
             
 End;
 /
-
 
 ------------------------------------------------------------
 -- Test de la fonction Ventemodifier
@@ -319,7 +318,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p;
+begin savepoint p1;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -331,7 +330,7 @@ begin savepoint p;
     IF PACKVente.getVenteById(maxVente).prix = 20000 THEN DBMS_OutPut.Put_Line('Le prix de la vente ' || maxVente || ' a ete modifie');
     ELSE raise NO_DATA_FOUND;
     end if;
- rollback to p;
+ rollback to p1
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de la modification de l agent numéro ' || maxVente);
@@ -349,7 +348,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p;
+begin savepoint p1;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -360,7 +359,7 @@ begin savepoint p;
     PACKVente.ventemodifier(maxVente, 'abc');
     IF PACKVente.getVenteById(maxVente).prix != 16000 THEN raise NO_DATA_FOUND;
     end if;
- rollback to p;
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur aucune données modifié');
