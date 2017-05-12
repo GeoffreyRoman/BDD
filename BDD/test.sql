@@ -306,7 +306,7 @@ EXCEPTION
             
 End;
 /
-/*
+
 ------------------------------------------------------------
 -- Test de la fonction Ventemodifier
 ------------------------------------------------------------
@@ -330,7 +330,7 @@ begin savepoint p1;
     IF PACKVente.getVenteById(maxVente).prix = 20000 THEN DBMS_OutPut.Put_Line('Le prix de la vente ' || maxVente || ' a ete modifie');
     ELSE raise NO_DATA_FOUND;
     end if;
- rollback to p1
+ rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de la modification de l agent numéro ' || maxVente);
@@ -340,7 +340,7 @@ EXCEPTION
 
 End;
 /
-*/
+
 Declare --  erreur modification
 newProp Vente.proprietaire_%Type;
 Pproprietaire_ Vente.proprietaire_%Type;
