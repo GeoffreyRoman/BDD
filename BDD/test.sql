@@ -307,3 +307,36 @@ EXCEPTION
             
 End;
 /
+
+------------------------------------------------------------
+-- Test de la fonction Ventemodifier
+------------------------------------------------------------
+Declare --  modification reussite
+newProp Vente.proprietaire_%Type;
+Pproprietaire_ Vente.proprietaire_%Type;
+Pagent_ vente.agent_%Type;
+Plogement_ vente.logement_%Type;
+maxVente number(2);
+nbLigne number(2);
+maxProp number(2);
+begin savepoint p;
+    SELECT max(agent_) into Pagent_ from Agent;
+    SELECT max(Logement_) into Plogement_ from Logement;
+    SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
+    INSERT into proprietaire (nom,tel) values ('Matou','0626229167');
+    SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
+    PACKVente.Venteinserer (newProp, '12/03/2016' ,16000, Pproprietaire_ ,Pagent_ ,Plogement_ );
+    SELECT max(vente_) into maxVente from Vente;
+    PACKVente.ventemodifier(maxVente, 20000);
+    IF PACKVente.getVenteById(maxVente).prix = 20000 THEN DBMS_OutPut.Put_Line('Le prix de la vente ' || maxVente || ' a ete modifie');
+    ELSE raise NO_DATA_FOUND;
+    end if;
+ rollback to p;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de la modification de l agent numéro ' || maxVente);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+
+End;
+/
