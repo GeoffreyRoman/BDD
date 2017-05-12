@@ -8,7 +8,7 @@ Declare
 
 NumA Agent.agent_%Type := 100; --le numéro de l agent a tester est 100, donc normalement inexistant
 LA Agent%RowType; --liste des agents
-begin 
+begin
 savepoint p1;
 LA := PACKagent.getAgentById(NumA);
 DBMS_OutPut.Put_Line('Nom de l agent = ' || LA.nom);
@@ -19,7 +19,7 @@ EXCEPTION
                 dbms_output.put_line('L agent n ' || NumA || ' n existe pas');
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-                
+
                 rollback to p1;
 End;
 /
@@ -33,7 +33,7 @@ TelA Agent.tel%Type := '061222223';
 SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
-begin 
+begin
 savepoint p2;
     PACKagent.agentinserer (NomA , TelA , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
@@ -47,16 +47,16 @@ EXCEPTION
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
+
 End;
 /
 
-Declare -- erreur dans l'insertion 
+Declare -- erreur dans l'insertion
 NomA Agent.nom%Type := 'ESLAN';
 SalaireA Agent.salaire%Type := 1600;
 maxAgent number(2);
 nbColonne number(2);
-begin 
+begin
 savepoint p2;
     PACKagent.agentinserer (NomA , '0612222456723' , SalaireA);
     SELECT max(agent_) into maxAgent from Agent;
@@ -81,7 +81,7 @@ End;
 Declare
 idAgentASupprimer Agent.agent_%Type; -- existe
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p;
     PACKAGENT.agentinserer('Gerard','0626299167',3000);
     SELECT MAX(Agent_)  into idAgentASupprimer from agent;
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentASupprimer;
@@ -89,7 +89,7 @@ begin savepoint p;
     DBMS_OutPut.Put_Line('L agent ' || idAgentASupprimer || ' a était supprimer de la table Agent');
     ELSE
     raise NO_DATA_FOUND;
-    end if; 
+    end if;
 
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
@@ -103,13 +103,13 @@ End;
 Declare
 idAgentAsupp Agent.agent_%Type := 20; -- existe pas
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p;
     SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAsupp;
     IF nbColonne = 1 THEN PACKagent.agentsupprimer(idAgentAsupp);
     DBMS_OutPut.Put_Line('L agent ' || idAgentAsupp || ' a était supprimer de la table Agent');
     ELSE
     raise NO_DATA_FOUND;
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
@@ -127,15 +127,15 @@ Declare
 idAgentAModifier Agent.agent_%Type;
 NomModif Agent.nom%Type := 'nommodifier';
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p;
 PACKAGENT.agentinserer('Gerard','0626299167',3000);
 SELECT MAX(Agent_) into idAgentAModifier from agent;
 PACKagent.agentmodifier (idAgentAModifier, NomModif);
 SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND nom = NomModif;
     IF nbColonne != 1 THEN raise NO_DATA_FOUND;
-    ELSE 
+    ELSE
     DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
@@ -149,13 +149,13 @@ Declare
 idAgentAModifier varchar(3) :='num'; -- erreur type
 NomModif Agent.nom%Type := 'nommodifier';
 nbColonne number(2) ;
-begin savepoint p; 
+begin savepoint p;
 PACKagent.agentmodifier (idAgentAModifier, NomModif);
 SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND nom = NomModif;
     IF nbColonne != 1 THEN raise NO_DATA_FOUND;
-    ELSE 
+    ELSE
     DBMS_OutPut.Put_Line('L agent numéro ' || idAgentAModifier || ' a était modifier dans la table Agent');
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN OTHERS THEN
@@ -171,13 +171,13 @@ End;
 Declare
 nbLigne number(3) ;
 retouragentotal number(3);
-begin savepoint p; 
+begin savepoint p;
 retouragentotal := PACKagent.agentotal;
 SELECT count(*) into nbLigne FROM Agent;
     IF nbLigne != retouragentotal THEN raise NO_DATA_FOUND;
-    ELSE 
+    ELSE
     DBMS_OutPut.Put_Line('Nombre d occurances '|| nbLigne);
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN OTHERS THEN
@@ -199,7 +199,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p; 
+begin savepoint p;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -211,14 +211,14 @@ begin savepoint p;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
     IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
     ELSE raise NO_DATA_FOUND;
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
+
 End;
 /
 
@@ -230,7 +230,7 @@ Plogement_ vente.logement_%Type;
 maxVente number(2);
 nbLigne number(2);
 maxProp number(2);
-begin savepoint p; 
+begin savepoint p;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
@@ -242,7 +242,7 @@ begin savepoint p;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
     IF nbLigne > 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete insere dans la table Agent');
     ELSE raise NO_DATA_FOUND;
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
@@ -251,8 +251,8 @@ EXCEPTION
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
-            
+
+
 End;
 /
 
@@ -262,48 +262,81 @@ End;
 Declare --  suppression reussite
 maxVente Vente.vente_%Type;
 nbLigne number(2);
-begin savepoint p; 
+begin savepoint p;
     SELECT max(vente_) into maxVente from Vente;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
     ELSE raise NO_DATA_FOUND;
-    end if; 
- rollback to p;
+    end if;
+
     PACKVente.ventesupprimer(maxVente);
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Agent');
     ELSE raise NO_DATA_FOUND;
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de la supression de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
+
 End;
 /
 
-Declare --  erreur suppression 
+Declare --  erreur suppression
 maxVente Vente.vente_%Type := 100; -- existe pas
 nbLigne number(2);
 begin savepoint p;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
     ELSE raise NO_DATA_FOUND;
-     rollback to p; 
-    end if; 
+     rollback to p;
+    end if;
 
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Vente');
     ELSE raise NO_DATA_FOUND;
-    end if; 
+    end if;
  rollback to p;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
                 dbms_output.put_line('Erreur lors de lsupression de la Vente numéro ' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
-            
+
+End;
+/
+
+------------------------------------------------------------
+-- Test de la fonction Ventemodifier
+------------------------------------------------------------
+Declare --  modification reussite
+newProp Vente.proprietaire_%Type;
+Pproprietaire_ Vente.proprietaire_%Type;
+Pagent_ vente.agent_%Type;
+Plogement_ vente.logement_%Type;
+maxVente number(2);
+nbLigne number(2);
+maxProp number(2);
+begin savepoint p;
+    SELECT max(agent_) into Pagent_ from Agent;
+    SELECT max(Logement_) into Plogement_ from Logement;
+    SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
+    INSERT into proprietaire (nom,tel) values ('Matou','0626229167');
+    SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
+    PACKVente.Venteinserer (newProp, '12/03/2016' ,16000, Pproprietaire_ ,Pagent_ ,Plogement_ );
+    SELECT max(vente_) into maxVente from Vente;
+    PACKVente.ventemodifier(maxVente, 20000);
+    IF PACKVente.getVenteById(maxVente).prix = 20000 THEN DBMS_OutPut.Put_Line('Le prix de la vente ' || maxVente || ' a ete modifie');
+    ELSE raise NO_DATA_FOUND;
+    end if;
+ rollback to p;
+EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+                dbms_output.put_line('Erreur lors de la modification de l agent numéro ' || maxVente);
+                dbms_output.put_line('SQLCode =  ' || SQLCode);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+
 End;
 /
