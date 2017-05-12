@@ -245,11 +245,11 @@ begin savepoint p1;
  rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur aucune données insérer');
+                dbms_output.put_line('Erreur aucune données insérer'); rollback to p1;
          WHEN OTHERS THEN
                 dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm); rollback to p1;
             
             
 End;
@@ -306,7 +306,7 @@ EXCEPTION
             
 End;
 /
-
+/*
 ------------------------------------------------------------
 -- Test de la fonction Ventemodifier
 ------------------------------------------------------------
@@ -336,10 +336,11 @@ EXCEPTION
                 dbms_output.put_line('Erreur lors de la modification de l agent numéro ' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
+                 rollback to p1;
 
 End;
 /
-
+*/
 Declare --  erreur modification
 newProp Vente.proprietaire_%Type;
 Pproprietaire_ Vente.proprietaire_%Type;
@@ -362,11 +363,11 @@ begin savepoint p1;
  rollback to p1;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur aucune données modifié');
+                dbms_output.put_line('Erreur aucune données modifié'); rollback to p1;
          WHEN OTHERS THEN
                 dbms_output.put_line('Erreur lors de la modification de la vente numéro ' || maxVente);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
-                dbms_output.put_line('SQLCode =  ' || sqlerrm);
+                dbms_output.put_line('SQLCode =  ' || sqlerrm); rollback to p1;
 
 
 End;
