@@ -66,7 +66,7 @@ savepoint p2;
     rollback to p2;
 EXCEPTION
         WHEN NO_DATA_FOUND THEN
-                dbms_output.put_line('Erreur lors de l insertion de l agent numéro' || NomA);
+                dbms_output.put_line('Erreur lors de l insertion de l agent numéro ' || NomA);
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
         WHEN OTHERS THEN
@@ -159,7 +159,7 @@ SELECT count(*) into nbColonne FROM Agent WHERE agent_ = idAgentAModifier AND no
  rollback to p;
 EXCEPTION
         WHEN OTHERS THEN
-                dbms_output.put_line('Erreur lors de modification de l agent numéro ' || idAgentAModifier);
+                dbms_output.put_line('Erreur lors de modification de l agent');
                 dbms_output.put_line('SQLCode =  ' || SQLCode);
                 dbms_output.put_line('SQLCode =  ' || sqlerrm);
 End;
@@ -193,8 +193,6 @@ End;
 ------------------------------------------------------------
 Declare --  insertion reussite
 newProp Vente.proprietaire_%Type;
-Pdate Vente.dateAchat%Type := '12/03/2016';
-prixP Vente.prix%Type := 16000;
 Pproprietaire_ Vente.proprietaire_%Type;
 Pagent_ vente.agent_%Type;
 Plogement_ vente.logement_%Type;
@@ -207,7 +205,7 @@ begin savepoint p;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
     INSERT into proprietaire (nom,tel) values ('Matou','0626229167');
     SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
-    PACKVente.Venteinserer (newProp, Pdate ,prixP,Pproprietaire_ ,Pagent_ ,Plogement_ );
+    PACKVente.Venteinserer (newProp, '12/03/2016' ,16000, Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
     SELECT max(proprietaire_) into maxProp from Vente;
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente and logement_ = Plogement_ and newProp = maxProp;
@@ -236,7 +234,7 @@ begin savepoint p;
     SELECT max(agent_) into Pagent_ from Agent;
     SELECT max(Logement_) into Plogement_ from Logement;
     SELECT max(Proprietaire_) into Pproprietaire_ from PROPRIETAIRE;
-    INSERT into proprietaire values(31, 'Matou','0626229167');
+    INSERT into proprietaire (nom,tel) values ('Matou','0626229167');
     SELECT max(Proprietaire_) into newProp from PROPRIETAIRE;
     PACKVente.Venteinserer (newProp, 'nn' , 16000, Pproprietaire_ ,Pagent_ ,Plogement_ );
     SELECT max(vente_) into maxVente from Vente;
