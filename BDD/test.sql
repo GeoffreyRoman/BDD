@@ -267,7 +267,7 @@ begin savepoint p;
     IF nbLigne = 1 THEN PACKVente.ventesupprimer(maxVente);
     ELSE raise NO_DATA_FOUND;
     end if; 
- rollback to p;
+    
     PACKVente.ventesupprimer(maxVente);
     SELECT count(*) into nbLigne FROM Vente WHERE vente_ = maxVente;
     IF nbLigne = 0 THEN DBMS_OutPut.Put_Line('La vente ' || maxVente || ' a ete supprimer dans la table Agent');
